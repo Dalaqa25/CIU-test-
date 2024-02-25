@@ -1,17 +1,25 @@
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image,Pressable } from 'react-native';
 import { Text, View } from '@/components/Themed';
+import { Subject } from '@/types';
+import { Link } from 'expo-router';
 
 
+type PropertySubjectsList = {
+    subject:Subject
+}
 
 
-const SubjectsList = ({ subject }) => 
+const SubjectsList = ({ subject } : PropertySubjectsList) => 
 {
   return (
-    <View style={styles.container}>
-      <Image source={{uri: subject.image}}
-      style={styles.image}/>
-      <Text style={styles.name}>{subject.name}</Text>
-    </View>
+    <Link href={`/${subject.id}`} asChild>
+        <Pressable style={styles.container}>
+        <Image source={{uri: subject.image}}
+        style={styles.image}
+        resizeMode='contain'/>
+        <Text style={styles.name}>{subject.name}</Text>
+        </Pressable>
+    </Link>
   );
 };
 
@@ -25,6 +33,7 @@ const styles = StyleSheet.create({
     borderRadius:30,
     backgroundColor:'white',
     padding:10,
+    flex:1,
   },
   name: {
     fontWeight:'bold',
